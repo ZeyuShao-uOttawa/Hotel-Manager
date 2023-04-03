@@ -27,10 +27,10 @@ const CustomerView = () => {
         <Fragment>
             <h2>Hotel Room Booking</h2>
             <div>
-                <label for="start">Start Date:</label>
-                <input type="date" id="start" name="trip-start" min={currentDate} max="2030-12-31" />
-                <label for="start">End Date:</label>
-                <input type="date" id="end" name="trip-start" min="2023-01-01" max="2030-12-31" />
+                <label for="start">Start Date: &nbsp; </label>
+                <input type="date" id="start" name="trip-start" min={currentDate} max="2030-12-31" /> &nbsp;
+                <label for="start">End Date: &nbsp; </label>
+                <input type="date" id="end" name="trip-start" min="2023-01-01" max="2030-12-31" /> &nbsp;
             </div>
             <Table striped bordered hover>
             <thead>

@@ -14,8 +14,6 @@ FROM room
 INNER JOIN hotel ON hotel.hotel_id = room.hotel_id
 WHERE (NOT is_rented);
 
-
-
 -- join hotel chain id, HC address, hotel id, hotel address
 SELECT  hotel_chain.HC_id, hotel_chain.address, hotel.hotel_id, hotel.address
 FROM hotel
