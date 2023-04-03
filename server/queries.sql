@@ -46,3 +46,17 @@ SELECT customer.name, renting.renting_id
 FROM customer
 INNER JOIN renting ON customer.SSN = renting.SSN;
 
+-- SAMPLE FOR REGISTRING A CUSTOMER, MAKING A BOOKING, THEN RENTING
+INSERT INTO customer VALUES(123456789,'Eric Liu','123 Rideau St', CURRENT_DATE);
+INSERT INTO booking(date, room_id, SSN) VALUES('2023-03-12', 1, 123456789)
+
+-- AFTER RENTING, IT CHANGES THE BOOLEAN OF THE ROOM
+BEGIN TRANSACTION;
+
+INSERT INTO renting(date, booking_id, room_id, SSN) VALUES('2023-03-12', 6,1, 123456789);
+
+UPDATE room SET is_rented = TRUE WHERE room_id=1;
+
+COMMIT;
+
+

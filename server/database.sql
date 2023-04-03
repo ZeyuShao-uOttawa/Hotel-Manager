@@ -72,7 +72,7 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE booking (
-  booking_id INT NOT NULL,
+  booking_id SERIAL,
   date DATE NOT NULL,
   room_id INT NOT NULL,
   SSN VARCHAR(20) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE booking (
 );
 
 CREATE TABLE renting (
-  renting_id INT NOT NULL,
+  renting_id SERIAL,
   date DATE NOT NULL,
   booking_id INT,
   room_id INT NOT NULL,
