@@ -1,9 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 
-const RoomList = () => {
+const CustomerView = () => {
 
     const [rooms, setRooms] = useState([]);
+
+    var currentDateObj = new Date();
+    const currentDate = currentDateObj.getFullYear() + '-' + (currentDateObj.getMonth() + 1) + '-' + currentDateObj.getDate();
+    console.log(currentDate);
 
     const getRooms = async () => {
         try {
@@ -21,6 +25,13 @@ const RoomList = () => {
 
     return (
         <Fragment>
+            <h2>Hotel Room Booking</h2>
+            <div>
+                <label for="start">Start Date:</label>
+                <input type="date" id="start" name="trip-start" min={currentDate} max="2030-12-31" />
+                <label for="start">End Date:</label>
+                <input type="date" id="end" name="trip-start" min="2023-01-01" max="2030-12-31" />
+            </div>
             <Table striped bordered hover>
             <thead>
                 <tr>
@@ -64,4 +75,4 @@ const RoomList = () => {
     );
 }
 
-export default RoomList;
+export default CustomerView;
