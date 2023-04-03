@@ -1,6 +1,6 @@
 # Set Up Hotel-Manager
 This file will instruct you with how to setup this project <br>
-First you would want to download or clone this repository
+First you would want to download or clone this repository, and also install node.js if it is not already installed
 
 # Setting Up the Back-End Server
 Once you have cloned or downloaded this project, open up the parent directory "Hotel-Manager" and cd into the server directory in a CLI then install the required packages by running the following commands <br><br>
