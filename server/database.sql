@@ -73,7 +73,8 @@ CREATE TABLE customer (
 
 CREATE TABLE booking (
   booking_id SERIAL,
-  date DATE NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
   room_id INT NOT NULL,
   SSN VARCHAR(20) NOT NULL,
   PRIMARY KEY (booking_id),

@@ -21,7 +21,7 @@ app.post("/booking", async(req, res) => {
   }
 });
 
-//Get hotels
+//Get all hotels
 app.get("/hotels", async(req, res) => {
   try {
     const allHotels = await pool.query("SELECT * FROM hotel");
@@ -32,7 +32,7 @@ app.get("/hotels", async(req, res) => {
   }
 });
 
-//Get rooms
+//Get all rooms
 app.get("/rooms", async(req, res) => {
   try {
     const allRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
@@ -46,8 +46,30 @@ app.get("/rooms", async(req, res) => {
 //Get available rooms
 app.get("/freeRooms", async(req, res) => {
   try {
-    const allFreeRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
+    const allFreeRooms = await pool.query("SELECT * FROM customer");
     res.json(allFreeRooms.rows);
+    console.log("Successful Query");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//Get all customers
+app.get("/customers", async (req, res) => {
+  try {
+    const allCustomers = await pool.query("SELECT * FROM employee");
+    res.json(allCustomers.rows);
+    console.log("Successful Query");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//Get all employees
+app.get("/employees", async (req, res) => {
+  try {
+    const allEmployees = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
+    res.json(allEmployees.rows);
     console.log("Successful Query");
   } catch (err) {
     console.error(err.message);

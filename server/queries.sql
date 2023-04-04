@@ -59,4 +59,15 @@ UPDATE room SET is_rented = TRUE WHERE room_id=1;
 
 COMMIT;
 
+-- Retrieving free rooms
+SELECT room.room_id
+FROM room
+LEFT JOIN booking ON room.room_id = booking.room_id
+WHERE booking.room_id IS NULL OR
+      (booking.start_date > 2023-03-15 OR booking.end_date < 2023-03-11);
 
+SELECT room.room_id
+FROM room
+LEFT JOIN booking ON room.room_id = booking.room_id
+WHERE booking.room_id IS NULL OR
+      (booking.start_date > 'end_date_input' OR booking.end_date < 'start_date_input');
