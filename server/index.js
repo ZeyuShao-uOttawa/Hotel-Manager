@@ -43,6 +43,17 @@ app.get("/rooms", async(req, res) => {
   }
 });
 
+//Get available rooms
+app.get("/freeRooms", async(req, res) => {
+  try {
+    const allFreeRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
+    res.json(allFreeRooms.rows);
+    console.log("Successful Query");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
 });

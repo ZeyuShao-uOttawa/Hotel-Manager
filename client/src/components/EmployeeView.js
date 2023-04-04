@@ -6,6 +6,6 @@ const EmployeeView = () => {
 
     </Fragment>
   );
-}
+};
 
 export default EmployeeView;
