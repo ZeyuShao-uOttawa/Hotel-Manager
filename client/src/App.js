@@ -4,6 +4,7 @@ import './App.css';
 
 //Components
 import CustomerView from './components/CustomerView';
+import EmployeeView from './components/EmployeeView';
 // import Tabs from './components/Tabs'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
             <CustomerView />
           </Tab>
           <Tab eventKey="two" title="Employee">
-            <p>Tab 2</p>
+            <EmployeeView />
           </Tab>
         </Tabs>
       </div>
