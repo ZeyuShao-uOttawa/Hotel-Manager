@@ -26,7 +26,7 @@ const CustomerView = () => {
     const getRooms = async () => {
         try {
             const date = {selectedStartDate, selectedEndDate};
-            const res = await fetch("http://localhost:5000/freeRooms", {
+            const res = await fetch("http://localhost:5000/freeRoomsDate", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(date)

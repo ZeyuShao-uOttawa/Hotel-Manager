@@ -41,13 +41,7 @@ const EmployeeView = () => {
 
   useEffect(() => {
     getRooms();
-  }, []);
-
-  useEffect(() => {
     getCustomers();
-  }, []);
-
-  useEffect(() => {
     getEmployees();
   }, []);
 
