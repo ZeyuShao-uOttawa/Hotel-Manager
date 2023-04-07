@@ -44,11 +44,17 @@ app.get("/rooms", async(req, res) => {
 });
 
 //Get available rooms
-app.get("/freeRooms", async(req, res) => {
+app.post("/freeRooms", async(req, res) => {
   try {
-    const allFreeRooms = await pool.query("SELECT * FROM customer");
+    console.log(req.body);
+    const startDate = req.body.selectedStartDate;
+    const endDate  = req.body.selectedEndDate;
+    const allFreeRooms = await pool.query(
+      "WITH roomID(id) as (SELECT room.room_id FROM room LEFT JOIN booking ON room.room_id = booking.room_id WHERE booking.room_id IS NULL OR (booking.start_date >= $1 OR booking.end_date <= $2)) SELECT * FROM room, hotel, roomID WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id",
+      [endDate, startDate]
+      );
     res.json(allFreeRooms.rows);
-    console.log("Successful Query");
+    console.log("Successful query to get all free rooms using dates");
   } catch (err) {
     console.error(err.message);
   }

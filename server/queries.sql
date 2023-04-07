@@ -63,13 +63,15 @@ SELECT room.room_id
 FROM room
 LEFT JOIN booking ON room.room_id = booking.room_id
 WHERE booking.room_id IS NULL OR
-      (booking.start_date > 2023-03-15 OR booking.end_date < 2023-03-11);
+      (booking.start_date >= '2023-04-15' OR booking.end_date <= '2023-04-10');
 
 SELECT room.room_id
 FROM room
 LEFT JOIN booking ON room.room_id = booking.room_id
 WHERE booking.room_id IS NULL OR
-      (booking.start_date > 'end_date_input' OR booking.end_date < 'start_date_input');
+      (booking.start_date >= 'end_date_input' OR booking.end_date <= 'start_date_input');
+
+WITH roomID(id) as (SELECT room.room_id FROM room LEFT JOIN booking ON room.room_id = booking.room_id WHERE booking.room_id IS NULL OR (booking.start_date >= 'end_date_input' OR booking.end_date <= 'start_date_input')) SELECT * FROM room, hotel, roomID WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id 
 
 
 -- retrieves bookings for a customer 

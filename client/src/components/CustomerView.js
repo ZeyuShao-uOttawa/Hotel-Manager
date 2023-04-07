@@ -7,28 +7,58 @@ import BookingModal from './BookingModal.js';
 const CustomerView = () => {
 
     const [rooms, setRooms] = useState([]);
+    const [filteredRooms, setFilteredRooms] = useState([]);
+    const [price, setPrice] = useState(1000);
+    const [numRooms, setNumRooms] = useState(1000);
+
+    var set1, set2;
 
     var currentDateObj = new Date();
-    var utcDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate()))
+    var utcDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate()));
+    var utcNextDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate() + 1));
     const currentDate = utcDate.toJSON().slice(0,10);
-    console.log(currentDate);
+    const nextDate = utcNextDate.toJSON().slice(0,10);
 
+    const [selectedStartDate, setSelectedStartDate] = useState(currentDate);
+    const [selectedEndDate, setSelectedEndDate] = useState(nextDate);
+    const [selectedMinEndDate, setSelectedMinEndDate] = useState(nextDate);
+    
     const getRooms = async () => {
         try {
-            const res = await fetch('http://localhost:5000/rooms');
+            const date = {selectedStartDate, selectedEndDate};
+            const res = await fetch("http://localhost:5000/freeRooms", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(date)
+            });
+            // const res = await fetch('http://localhost:5000/rooms');
             const jsonData = await res.json();
             setRooms(jsonData);
+            setFilteredRooms(jsonData);
+            console.log(jsonData.length);
         } catch (err) {
             console.error(err.message);
         }
     }
 
+    function handleStartDateChange(event) {
+        setSelectedStartDate(event.target.value);
+        var dateObj = new Date(event.target.value);
+        var tempDate = new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate() + 2));
+        const tempEndDate = tempDate.toJSON().slice(0,10);
+        setSelectedMinEndDate(tempEndDate);
+        if(event.target.value >= selectedEndDate){
+            setSelectedEndDate(tempEndDate);
+        }
+    }
 
-    const [price, setPrice] = useState(1000);
-    const [numRooms, setNumRooms] = useState(1000);
+    function handleEndDateChange(event) {
+        setSelectedEndDate(event.target.value);
+      }
     
     const handleChangePrice = (event) => {
         setPrice(event.target.value);
+        
     };
 
     const handleChangeRooms = (event) => {
@@ -37,6 +67,10 @@ const CustomerView = () => {
 
     useEffect(() => {
         getRooms();
+    }, [selectedStartDate, selectedEndDate]);
+
+    useEffect(() => {
+
     }, []);
 
     return (
@@ -46,9 +80,9 @@ const CustomerView = () => {
                 <Form>
                     <InputGroup className="mb-3">
                         <InputGroup.Text>Start Date:</InputGroup.Text>
-                        <Form.Control type="date" id="start" name="trip-start" min={currentDate} max="2024-12-31" />
+                        <Form.Control type="date" id="startDate" name="trip-start" min={currentDate} max="2024-12-31" value={selectedStartDate} onChange={handleStartDateChange}/>
                         <InputGroup.Text>End Date:</InputGroup.Text>
-                        <Form.Control type="date" id="end" name="trip-end" min={currentDate} max="2024-12-31" />
+                        <Form.Control type="date" id="endDate" name="trip-end" min={selectedMinEndDate} max="2024-12-31" value={selectedEndDate} onChange={handleEndDateChange}/>
                         <InputGroup.Text>Room Capacity:</InputGroup.Text>
                         <Form.Select aria-label="Select Room Capacity">
                             <option value="none">Select Room Capacity</option>
