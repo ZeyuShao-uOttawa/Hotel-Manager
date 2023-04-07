@@ -63,7 +63,7 @@ app.post("/freeRooms", async(req, res) => {
 //Get all customers
 app.get("/customers", async (req, res) => {
   try {
-    const allCustomers = await pool.query("SELECT * FROM employee");
+    const allCustomers = await pool.query("SELECT * FROM customer");
     res.json(allCustomers.rows);
     console.log("Successful Query");
   } catch (err) {
@@ -74,7 +74,7 @@ app.get("/customers", async (req, res) => {
 //Get all employees
 app.get("/employees", async (req, res) => {
   try {
-    const allEmployees = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
+    const allEmployees = await pool.query("SELECT * FROM employee");
     res.json(allEmployees.rows);
     console.log("Successful Query");
   } catch (err) {
