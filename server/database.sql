@@ -91,6 +91,7 @@ CREATE TABLE renting (
   booking_id INT,
   room_id INT NOT NULL,
   SSN VARCHAR(20) NOT NULL,
+  total_cost DECIMAL(10,2),
   PRIMARY KEY (renting_id),
   FOREIGN KEY (booking_id) REFERENCES booking(booking_id)
     ON DELETE SET NULL,
@@ -252,3 +253,43 @@ INSERT INTO employee VALUES(	736492581	,'	Grace	','	19 Poplar Street, Richmond	'
 CREATE INDEX idx_room_id ON room (room_id);
 CREATE INDEX idx_booking_id_start_end ON booking (booking_id,start_date, end_date);
 CREATE INDEX idx_renting_id_start_end ON renting (renting_id,start_date, end_date);
+
+-- TRIGGER to update total renting price
+CREATE FUNCTION total_renting_price()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    room_price FLOAT;
+BEGIN
+	room_price := (SELECT price FROM room WHERE room_id = new.room_id)::float;
+	UPDATE renting
+	SET total_cost = (SELECT SUM(room_price * (end_date - start_date))
+					  FROM renting
+					  WHERE renting_id = NEW.renting_id)
+	WHERE renting_id = NEW.renting_id;
+	RETURN NEW;
+END;
+$$;
+CREATE TRIGGER total_renting_price_trigger
+AFTER INSERT ON renting
+FOR EACH ROW EXECUTE FUNCTION total_renting_price();
+
+-- trigger to change room availability
+CREATE FUNCTION update_room_rental_status()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	IF TG_OP = 'INSERT' THEN
+		UPDATE room SET is_rented = TRUE WHERE room_id = NEW.room_id;
+	ELSIF TG_OP = 'UPDATE' AND NEW.end_date IS NOT NULL AND NEW.end_date < NOW() THEN
+		UPDATE room SET is_rented = FALSE WHERE room_id = OLD.room_id;
+	END IF;
+	RETURN NEW;
+END;
+$$;
+CREATE TRIGGER rental_status_trigger
+AFTER INSERT OR UPDATE ON renting
+FOR EACH ROW
+EXECUTE FUNCTION update_room_rental_status();
