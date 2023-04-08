@@ -86,7 +86,8 @@ CREATE TABLE booking (
 
 CREATE TABLE renting (
   renting_id SERIAL,
-  date DATE NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
   booking_id INT,
   room_id INT NOT NULL,
   SSN VARCHAR(20) NOT NULL,
@@ -246,3 +247,8 @@ INSERT INTO employee VALUES(	174836295	,'	Avery	','	528 Pandora Ave, Victoria	',
 INSERT INTO employee VALUES(	619287345	,'	Aiden	','	8765 Elm Street, Victoria	','	manager	',	38	);
 INSERT INTO employee VALUES(	329856417	,'	Elizabeth	','	3296 Bayview St, Richmond	','	manager	',	39	);
 INSERT INTO employee VALUES(	736492581	,'	Grace	','	19 Poplar Street, Richmond	','	manager	',	40	);
+
+-- indexing. B-trees are the default index type in PostgreSQL (ordered data access)
+CREATE INDEX idx_room_id ON room (room_id);
+CREATE INDEX idx_booking_id_start_end ON booking (booking_id,start_date, end_date);
+CREATE INDEX idx_renting_id_start_end ON renting (renting_id,start_date, end_date);
