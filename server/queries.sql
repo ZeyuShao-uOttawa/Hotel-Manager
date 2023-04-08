@@ -47,16 +47,12 @@ FROM customer
 INNER JOIN renting ON customer.SSN = renting.SSN;
 
 -- SAMPLE FOR REGISTRING A CUSTOMER, MAKING A BOOKING, THEN RENTING
-INSERT INTO customer VALUES(123456789,'Eric Liu','123 Rideau St', CURRENT_DATE);
+INSERT INTO customer VALUES(123456789, 'Eric', '123 Laurier St', CURRENT_DATE);
 INSERT INTO booking(start_date, end_date, room_id, SSN) VALUES(CURRENT_DATE, CURRENT_DATE+5, 1, 123456789);
 
 -- AFTER RENTING, IT CHANGES THE BOOLEAN OF THE ROOM
-BEGIN TRANSACTION;
-INSERT INTO renting(date, booking_id, room_id, SSN) VALUES(CURRENT_DATE, 1,1, 123456789);
+INSERT INTO renting(start_date, end_date, booking_id, room_id, SSN) VALUES(CURRENT_DATE, CURRENT_DATE+5, 'booking_id','room_id', 'existing customer s ssn');
 
-UPDATE room SET is_rented = TRUE WHERE room_id=1;
-
-COMMIT;
 
 -- Retrieving free rooms
 WITH roomID(id) 
