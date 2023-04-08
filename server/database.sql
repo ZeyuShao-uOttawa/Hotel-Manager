@@ -109,50 +109,50 @@ INSERT INTO hotel_chain VALUES (4,  '281 MacLaren Street, Calgary',	8,  	'004mac
 INSERT INTO hotel_chain VALUES (5,  '1486 Bayfield St, Vancouver',  	8, 	'005bayfield@gmail.com',  '(705)794-1622');
 
 -- inserting hotels (I MANUALLY CHANGED THE NUMBER OF ROOMS EACH HOTEL HAS)
-INSERT INTO hotel VALUES (1, 1,	566,	'10 Ross St, Montreal',		'001ross@gmail.com',	'(613)539-8729',	1,	381947194);
-INSERT INTO hotel VALUES (2, 2, 63,	'20 Main St, Montreal',		'002main@gmail.com',	'(604)297-2840',	1,	283710389);
-INSERT INTO hotel VALUES (3, 3, 519,	'30 Elgin Ave, Sherbrooke', 	'003eglgin@gmail.com',  '(905)973-6472',	1,	294892738);
-INSERT INTO hotel VALUES (4, 4, 360,	'40 Main St, Sherbrooke',	'004main@gmail.com',  	'(613)539-7292',	1,	173950392);
-INSERT INTO hotel VALUES (5, 5, 162,	'50 Rue Levy, Quebec',		'005rue@gmail.com',   	'(519)562-3719',	1,	739281674);
-INSERT INTO hotel VALUES (6, 1, 187,	'60 Weir Crescent, Quebec',	'006weir@gmail.com',  	'(418)254-8077',	1,	209193729);
-INSERT INTO hotel VALUES (7, 3, 216,	'70 Baker St, Laval',		'007baker@gmail.com', 	'(416)489-9590',	1,	739274927);
-INSERT INTO hotel VALUES (8, 5, 71,	'80 Ross St, Laval',		'008ross@gmail.com',	'(416)618-9016',	1,	483928492);
+INSERT INTO hotel VALUES (1, 1,	41,	'10 Ross St, Montreal',		'001ross@gmail.com',	'(613)539-8729',	1,	381947194);
+INSERT INTO hotel VALUES (2, 2, 30,	'20 Main St, Montreal',		'002main@gmail.com',	'(604)297-2840',	1,	283710389);
+INSERT INTO hotel VALUES (3, 3, 29,	'30 Elgin Ave, Sherbrooke', 	'003eglgin@gmail.com',  '(905)973-6472',	1,	294892738);
+INSERT INTO hotel VALUES (4, 4, 23,	'40 Main St, Sherbrooke',	'004main@gmail.com',  	'(613)539-7292',	1,	173950392);
+INSERT INTO hotel VALUES (5, 5, 25,	'50 Rue Levy, Quebec',		'005rue@gmail.com',   	'(519)562-3719',	1,	739281674);
+INSERT INTO hotel VALUES (6, 1, 31,	'60 Weir Crescent, Quebec',	'006weir@gmail.com',  	'(418)254-8077',	1,	209193729);
+INSERT INTO hotel VALUES (7, 3, 48,	'70 Baker St, Laval',		'007baker@gmail.com', 	'(416)489-9590',	1,	739274927);
+INSERT INTO hotel VALUES (8, 5, 12,	'80 Ross St, Laval',		'008ross@gmail.com',	'(416)618-9016',	1,	483928492);
 
-INSERT INTO hotel VALUES (9, 1, 241,	'10 Holdom Ave, Ottawa',	'009holdom@gmail.com',  '(604)586-6171',	2,	289403892);
-INSERT INTO hotel VALUES (10, 2, 342,	'20 Island Hwy, Ottawa',	'010island@gmail.com', 	'(250)332-6053',	2,	765432189);
-INSERT INTO hotel VALUES (11, 3, 572,	'30 Victor Ave, Ottawa',	'011victor@gmail.com', 	'(416)755-4811',	2,	127563249);
-INSERT INTO hotel VALUES (12, 4, 451,	'40 Laren St, Ottawa',		'012laren@gmail.com', 	'(613)880-1358',	2,	954872634);
-INSERT INTO hotel VALUES (13, 5, 204,	'50 Cork St, Gatineau',		'013cork@gmail.com', 	'(519)836-5078',	2,	631784956);
-INSERT INTO hotel VALUES (14, 1, 346,	'60 Tycos Dr, Gatineau',	'013tycos@gmail.com', 	'(416)931-9518',	2,	841967328);
-INSERT INTO hotel VALUES (15, 3, 291,	'70 Ham St, Gatineau',		'014ham@gmail.com',   	'(306)378-0357',	2,	192635847);
-INSERT INTO hotel VALUES (16, 5, 577,	'80 Lept Ave, Gatineau',	'016lept@gmail.com',  	'(780)495-8494',	2,	526374981);
+INSERT INTO hotel VALUES (9, 1, 17,	'10 Holdom Ave, Ottawa',	'009holdom@gmail.com',  '(604)586-6171',	2,	289403892);
+INSERT INTO hotel VALUES (10, 2, 38,	'20 Island Hwy, Ottawa',	'010island@gmail.com', 	'(250)332-6053',	2,	765432189);
+INSERT INTO hotel VALUES (11, 3, 45,	'30 Victor Ave, Ottawa',	'011victor@gmail.com', 	'(416)755-4811',	2,	127563249);
+INSERT INTO hotel VALUES (12, 4, 25,	'40 Laren St, Ottawa',		'012laren@gmail.com', 	'(613)880-1358',	2,	954872634);
+INSERT INTO hotel VALUES (13, 5, 49,	'50 Cork St, Gatineau',		'013cork@gmail.com', 	'(519)836-5078',	2,	631784956);
+INSERT INTO hotel VALUES (14, 1, 37,	'60 Tycos Dr, Gatineau',	'013tycos@gmail.com', 	'(416)931-9518',	2,	841967328);
+INSERT INTO hotel VALUES (15, 3, 20,	'70 Ham St, Gatineau',		'014ham@gmail.com',   	'(306)378-0357',	2,	192635847);
+INSERT INTO hotel VALUES (16, 5, 28,	'80 Lept Ave, Gatineau',	'016lept@gmail.com',  	'(780)495-8494',	2,	526374981);
 
-INSERT INTO hotel VALUES (17, 1, 227,	'10 Prisk Rd, Toronto', 	'017prisk@gmail.com', 	'(250)847-2434', 	3, 	975823456);
-INSERT INTO hotel VALUES (18, 2, 452,	'20 11th Ave, Toronto', 	'01811@gmail.com', 	'(403)205-1243', 	3, 	123456789);
-INSERT INTO hotel VALUES (19, 3, 177,	'30 Clay Ave, Brampton', 	'019clay@gmail.com',  	'(416)522-9455',	3, 	867530901);
-INSERT INTO hotel VALUES (20, 4, 405,	'40 Toy Ave, Brampton', 	'020toy@gmail.com',   	'(902)843-1973', 	3, 	987654321);
-INSERT INTO hotel VALUES (21, 5, 560,	'50 Grey St, Hamilton', 	'021grey@gmail.com',  	'(905)449-7141', 	3, 	642857643);
-INSERT INTO hotel VALUES (22, 1, 361,	'60 Keith Rd, Hamilton', 	'022keith@gmail.com', 	'(364)982-0436', 	3, 	561987423);
-INSERT INTO hotel VALUES (23, 3, 414,	'70 Kyle Ave, Mississauga',	'023kyle@gmail.com',  	'(416)503-2867', 	3, 	739586124);
-INSERT INTO hotel VALUES (24, 5, 116,	'80 Port Rd, Mississauga', 	'024port@gmail.com',  	'(403)687-2458', 	3, 	489632175);
+INSERT INTO hotel VALUES (17, 1, 26,	'10 Prisk Rd, Toronto', 	'017prisk@gmail.com', 	'(250)847-2434', 	3, 	975823456);
+INSERT INTO hotel VALUES (18, 2, 40,	'20 11th Ave, Toronto', 	'01811@gmail.com', 	'(403)205-1243', 	3, 	123456789);
+INSERT INTO hotel VALUES (19, 3, 21,	'30 Clay Ave, Brampton', 	'019clay@gmail.com',  	'(416)522-9455',	3, 	867530901);
+INSERT INTO hotel VALUES (20, 4, 26,	'40 Toy Ave, Brampton', 	'020toy@gmail.com',   	'(902)843-1973', 	3, 	987654321);
+INSERT INTO hotel VALUES (21, 5, 48,	'50 Grey St, Hamilton', 	'021grey@gmail.com',  	'(905)449-7141', 	3, 	642857643);
+INSERT INTO hotel VALUES (22, 1, 46,	'60 Keith Rd, Hamilton', 	'022keith@gmail.com', 	'(364)982-0436', 	3, 	561987423);
+INSERT INTO hotel VALUES (23, 3, 31,	'70 Kyle Ave, Mississauga',	'023kyle@gmail.com',  	'(416)503-2867', 	3, 	739586124);
+INSERT INTO hotel VALUES (24, 5, 11,	'80 Port Rd, Mississauga', 	'024port@gmail.com',  	'(403)687-2458', 	3, 	489632175);
 
-INSERT INTO hotel VALUES (25, 1, 431,	'10 Brim Blvd, Calgary', 	'025brim@gmail.com',   	'(514)581-1948', 	4, 	198567432);
-INSERT INTO hotel VALUES (26, 2, 516,	'20 Crane St, Calgary', 	'026crane@gmail.com', 	'(819)855-0613', 	4, 	841279856);
-INSERT INTO hotel VALUES (27, 3, 442,	'30 James St, Calgary', 	'027james@gmail.com', 	'(604)856-6219', 	4, 	523987410);
-INSERT INTO hotel VALUES (28, 4, 238,	'40 Royale Ave, Calgary',   	'028royale@gmail.com', 	'(496)261-3196', 	4, 	710243689);
-INSERT INTO hotel VALUES (29, 5, 257,	'50 Yoho Valley Rd, Edmonton',  '029yoho@gmail.com',  	'(630)439-6363', 	4, 	627410395);
-INSERT INTO hotel VALUES (30, 1, 169,	'60 Brew Creek Rd, Edmonton', 	'030brew@gmail.com', 	'(250)969-1428', 	4, 	184726503);
-INSERT INTO hotel VALUES (31, 3, 88,	'70 Central Pkwy, Edmonton', 	'031central@gmail.com',	'(905)609-2096', 	4, 	563890124);
-INSERT INTO hotel VALUES (32, 5, 551,	'80 Derry Rd, Edmonton', 	'032derry@gmail.com', 	'(986)891-4798', 	4, 	290183765);
+INSERT INTO hotel VALUES (25, 1, 6,	'10 Brim Blvd, Calgary', 	'025brim@gmail.com',   	'(514)581-1948', 	4, 	198567432);
+INSERT INTO hotel VALUES (26, 2, 19,	'20 Crane St, Calgary', 	'026crane@gmail.com', 	'(819)855-0613', 	4, 	841279856);
+INSERT INTO hotel VALUES (27, 3, 26,	'30 James St, Calgary', 	'027james@gmail.com', 	'(604)856-6219', 	4, 	523987410);
+INSERT INTO hotel VALUES (28, 4, 33,	'40 Royale Ave, Calgary',   	'028royale@gmail.com', 	'(496)261-3196', 	4, 	710243689);
+INSERT INTO hotel VALUES (29, 5, 43,	'50 Yoho Valley Rd, Edmonton',  '029yoho@gmail.com',  	'(630)439-6363', 	4, 	627410395);
+INSERT INTO hotel VALUES (30, 1, 30,	'60 Brew Creek Rd, Edmonton', 	'030brew@gmail.com', 	'(250)969-1428', 	4, 	184726503);
+INSERT INTO hotel VALUES (31, 3, 42,	'70 Central Pkwy, Edmonton', 	'031central@gmail.com',	'(905)609-2096', 	4, 	563890124);
+INSERT INTO hotel VALUES (32, 5, 28,	'80 Derry Rd, Edmonton', 	'032derry@gmail.com', 	'(986)891-4798', 	4, 	290183765);
 
-INSERT INTO hotel VALUES (33, 1, 261,	'10 Lauzon Pkwy, Vancouver', 	'033lauzon@gmail.com', 	'(519)980-6515', 	5, 	318495672);
-INSERT INTO hotel VALUES (34, 2, 319,	'20 102nd Ave, Vancouver',	'034102@gmail.com', 	'(250)787-4373', 	5, 	786219045);
-INSERT INTO hotel VALUES (35, 3, 516,	'30 Derry Rd, Burnaby', 	'035derry@gmail.com', 	'(604)904-5388', 	5, 	957468123);
-INSERT INTO hotel VALUES (36, 4, 579,	'40 Keith Rd, Burnaby', 	'036keith@gmail.com', 	'(450)550-1998', 	5, 	542378619);
-INSERT INTO hotel VALUES (37, 5, 481,	'50 Chemin du Lac, Victoria', 	'037chemin@gmail.com', 	'(514)905-7575', 	5, 	174836295);
-INSERT INTO hotel VALUES (38, 1, 429,	'60 Tray, Victoria', 		'038tray@gmail.com', 	'(416)966-3340', 	5, 	619287345);
-INSERT INTO hotel VALUES (39, 3, 485,	'70 Yonge St, Richmond',	'039yonge@gmail.com', 	'(250)318-9829', 	5, 	329856417);
-INSERT INTO hotel VALUES (40, 5, 261,	'80 McGill Rd, Richmond', 	'040mcgill@gmail.com', 	'(514)578-4133', 	5,	736492581);
+INSERT INTO hotel VALUES (33, 1, 35,	'10 Lauzon Pkwy, Vancouver', 	'033lauzon@gmail.com', 	'(519)980-6515', 	5, 	318495672);
+INSERT INTO hotel VALUES (34, 2, 36,	'20 102nd Ave, Vancouver',	'034102@gmail.com', 	'(250)787-4373', 	5, 	786219045);
+INSERT INTO hotel VALUES (35, 3, 28,	'30 Derry Rd, Burnaby', 	'035derry@gmail.com', 	'(604)904-5388', 	5, 	957468123);
+INSERT INTO hotel VALUES (36, 4, 32,	'40 Keith Rd, Burnaby', 	'036keith@gmail.com', 	'(450)550-1998', 	5, 	542378619);
+INSERT INTO hotel VALUES (37, 5, 24,	'50 Chemin du Lac, Victoria', 	'037chemin@gmail.com', 	'(514)905-7575', 	5, 	174836295);
+INSERT INTO hotel VALUES (38, 1, 15,	'60 Tray, Victoria', 		'038tray@gmail.com', 	'(416)966-3340', 	5, 	619287345);
+INSERT INTO hotel VALUES (39, 3, 44,	'70 Yonge St, Richmond',	'039yonge@gmail.com', 	'(250)318-9829', 	5, 	329856417);
+INSERT INTO hotel VALUES (40, 5, 47,	'80 McGill Rd, Richmond', 	'040mcgill@gmail.com', 	'(514)578-4133', 	5,	736492581);
 
 -- inserting amenities
 INSERT INTO amenity VALUES (1, 'Free Wi-Fi');
