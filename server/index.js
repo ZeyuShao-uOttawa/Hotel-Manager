@@ -62,11 +62,9 @@ app.post("/freeRoomsDate", async(req, res) => {
 //Get available rooms by room capacity
 app.post("/freeRoomsCapacity", async(req, res) => {
   try {
-    const startDate = req.body.selectedStartDate;
-    const allFreeRooms = await pool.query(
-      "WITH roomID(id) as (SELECT room.room_id FROM room LEFT JOIN booking ON room.room_id = booking.room_id WHERE booking.room_id IS NULL OR (booking.start_date >= $1 OR booking.end_date <= $2)) SELECT * FROM room, hotel, roomID WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id",
-      [endDate, startDate]
-      );
+    const roomCapacity = req.body.roomSize;
+    const allRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
+    res.json(allRooms.rows);
     res.json(allFreeRooms.rows);
     console.log("Successful query to get all free rooms using room capacity");
   } catch (err) {

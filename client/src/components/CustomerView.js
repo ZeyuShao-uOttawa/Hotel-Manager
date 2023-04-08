@@ -7,11 +7,12 @@ import BookingModal from './BookingModal.js';
 const CustomerView = () => {
 
     const [rooms, setRooms] = useState([]);
-    const [filteredRooms, setFilteredRooms] = useState([]);
+    const [roomsByDate, setRoomsByDate] = useState([]);
     const [price, setPrice] = useState(1000);
     const [numRooms, setNumRooms] = useState(1000);
+    const [roomCapacity, setRoomCapacity] = useState("");
 
-    var set1, set2;
+    const [firstLoad, setFirstLoad] = useState(true);
 
     var currentDateObj = new Date();
     var utcDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate()));
@@ -23,7 +24,17 @@ const CustomerView = () => {
     const [selectedEndDate, setSelectedEndDate] = useState(nextDate);
     const [selectedMinEndDate, setSelectedMinEndDate] = useState(nextDate);
     
-    const getRooms = async () => {
+    const intersectData = (jsonData) => {
+        const retreivedDataSet = new Set(jsonData.map((item) => JSON.stringify(item)));
+        const currentDataSet = new Set(rooms.map((item) => JSON.stringify(item)));
+        const filteredDataSet = new Set([...currentDataSet].filter((item) => retreivedDataSet.has(item)));
+        // const unionSet = new Set([...dataSet, ...newDataSet]);
+        const filteredData = Array.from(filteredDataSet).map((item) => JSON.parse(item));
+
+        return filteredData;
+    }
+
+    const getRoomsDate = async () => {
         try {
             const date = {selectedStartDate, selectedEndDate};
             const res = await fetch("http://localhost:5000/freeRoomsDate", {
@@ -31,11 +42,30 @@ const CustomerView = () => {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(date)
             });
-            // const res = await fetch('http://localhost:5000/rooms');
             const jsonData = await res.json();
-            setRooms(jsonData);
-            setFilteredRooms(jsonData);
             console.log(jsonData.length);
+            if(firstLoad){
+                setFirstLoad(false);
+                setRooms(jsonData);
+                setRoomsByDate(jsonData);
+            }else{
+                console.log(intersectData(jsonData));
+                // setRooms(intersectData(jsonData));
+                setRooms(jsonData);
+            }
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+    const getRoomsCapacity = async () => {
+        try {
+            console.log("Room Capacity Ran");
+            const res = await fetch("http://localhost:5000/freeRoomsDate", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(roomCapacity)
+            });
         } catch (err) {
             console.error(err.message);
         }
@@ -55,10 +85,13 @@ const CustomerView = () => {
     function handleEndDateChange(event) {
         setSelectedEndDate(event.target.value);
       }
+
+    function handleChangeRoomCapacity(event) {
+        setRoomCapacity(event.target.value);
+    }
     
     const handleChangePrice = (event) => {
         setPrice(event.target.value);
-        
     };
 
     const handleChangeRooms = (event) => {
@@ -66,12 +99,18 @@ const CustomerView = () => {
     };
 
     useEffect(() => {
-        getRooms();
+        getRoomsDate();
     }, [selectedStartDate, selectedEndDate]);
 
     useEffect(() => {
+        if(!firstLoad){
+            getRoomsCapacity();
+        }
+    }, [roomCapacity]);
 
-    }, []);
+    useEffect(() => {
+        getRoomsDate();
+    }, [price]);
 
     return (
         <Fragment>
@@ -84,7 +123,7 @@ const CustomerView = () => {
                         <InputGroup.Text>End Date:</InputGroup.Text>
                         <Form.Control type="date" id="endDate" name="trip-end" min={selectedMinEndDate} max="2024-12-31" value={selectedEndDate} onChange={handleEndDateChange}/>
                         <InputGroup.Text>Room Capacity:</InputGroup.Text>
-                        <Form.Select aria-label="Select Room Capacity">
+                        <Form.Select aria-label="Select Room Capacity" value={roomCapacity} onChange={handleChangeRoomCapacity}>
                             <option value="none">Select Room Capacity</option>
                             <option value="single">Single</option>
                             <option value="double">Double</option>
