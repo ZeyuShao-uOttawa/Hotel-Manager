@@ -4,11 +4,35 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-const BookingModal = () => {
+const BookingModal = (props) => {
   const [show, setShow] = useState(false);
+  const [formValues, setFormValues] = useState({ SSN: "", name: "", address: "" });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const createBooking = async () =>{
+    try {
+      const res = fetch("http://localhost:5000/createCustomer", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formValues)
+      });
+  
+      props.handleReloadEmployees();
+      // handleClose();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <Fragment>
@@ -18,21 +42,39 @@ const BookingModal = () => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Book Room</Modal.Title>
+          <Modal.Title>Book Room #{props.roomID}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <InputGroup className="mb-3" controlId="bookingForm.SSN">
+            <InputGroup className="mb-3">
               <InputGroup.Text>Social Security Number:</InputGroup.Text>
-              <Form.Control placeholder="SSN" autoFocus />
+              <Form.Control placeholder="SSN" name="SSN" value={formValues.SSN} onChange={handleInputChange} autoFocus 
+                isValid={formValues.SSN.length === 9 && !isNaN(Number(formValues.SSN))}
+                isInvalid={formValues.SSN.length !== 9 || isNaN(Number(formValues.SSN))}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please Enter a Valid Social Security Number
+              </Form.Control.Feedback>
             </InputGroup>
-            <InputGroup className="mb-3" controlId="bookingForm.Name">
+            <InputGroup className="mb-3">
               <InputGroup.Text>Full Name:</InputGroup.Text>
-              <Form.Control placeholder="John Doe" />
+              <Form.Control placeholder="John Doe" name="name" value={formValues.name} onChange={handleInputChange} 
+                isValid={formValues.name.length > 0}
+                isInvalid={formValues.name.length === 0}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please Enter a Name
+              </Form.Control.Feedback>
             </InputGroup>
-            <InputGroup className="mb-3" controlId="bookingForm.Address">
+            <InputGroup className="mb-3">
               <InputGroup.Text>Address:</InputGroup.Text>
-              <Form.Control placeholder="123 Center Town, Ottawa" />
+              <Form.Control placeholder="123 Center Town, Ottawa" name="address" value={formValues.address} onChange={handleInputChange} 
+                isValid={formValues.address.length > 0}
+                isInvalid={formValues.address.length === 0}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please Enter a Address
+              </Form.Control.Feedback>
             </InputGroup>
           </Form>
         </Modal.Body>
@@ -40,7 +82,7 @@ const BookingModal = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="success" onClick={handleClose}>
+          <Button variant="success" onClick={createBooking}>
             Book Room
           </Button>
         </Modal.Footer>

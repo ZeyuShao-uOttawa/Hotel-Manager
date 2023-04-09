@@ -9,16 +9,22 @@ import EmployeeView from './components/EmployeeView';
 
 function App() {
   const [tabKey, initTabKey] = useState('one')
+
+  const [reloadEmployees, setReloadEmployees] = useState(0);
+  function handleReloadEmployees() {
+    setReloadEmployees(reloadEmployees + 1);
+  }
+
   return (
     <Fragment>
       <div className='container'>
         <h2 className="mb-3 text-center">Hotel Booking/Management</h2>
         <Tabs activeKey={tabKey} onSelect={(e) => initTabKey(e)}>
           <Tab eventKey="one" title="Customer">
-            <CustomerView />
+            <CustomerView handleReloadEmployees={handleReloadEmployees}/>
           </Tab>
           <Tab eventKey="two" title="Employee">
-            <EmployeeView />
+            <EmployeeView update={reloadEmployees}/>
           </Tab>
         </Tabs>
       </div>

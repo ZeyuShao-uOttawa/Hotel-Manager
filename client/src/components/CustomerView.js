@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import BookingModal from './BookingModal.js';
 
-const CustomerView = () => {
+const CustomerView = (props) => {
     const [roomsByDate, setRoomsByDate] = useState([]);
     const [rooms, setRooms] = useState([]);
 
@@ -14,7 +14,7 @@ const CustomerView = () => {
     const [chain, setChain] = useState("none");
     const [rating, setRating] = useState("none");
     const [price, setPrice] = useState(1000);
-    const [numRooms, setNumRooms] = useState(600);
+    const [numRooms, setNumRooms] = useState(50);
 
     const [firstLoad, setFirstLoad] = useState(true);
 
@@ -31,20 +31,20 @@ const CustomerView = () => {
     const handleFilterUpdate = () => {
         var filteredData = roomsByDate;
         
-        if(capacity != "none"){
-            filteredData = filteredData.filter((room) => room.capacity == capacity);
+        if(capacity !== "none"){
+            filteredData = filteredData.filter((room) => room.capacity === capacity);
         }
 
-        if(city != "none"){
+        if(city !== "none"){
             filteredData = filteredData.filter((room) => room.address.includes(city));
         }
 
-        if(chain != "none"){
-            filteredData = filteredData.filter((room) => room.hc_id == chain);
+        if(chain !== "none"){
+            filteredData = filteredData.filter((room) => room.hc_id === parseInt(chain));
         }
 
-        if(rating != "none"){
-            filteredData = filteredData.filter((room) => room.rating == rating);
+        if(rating !== "none"){
+            filteredData = filteredData.filter((room) => room.rating === rating);
         }
 
         filteredData = filteredData.filter((room) => parseInt(room.price) < price);
@@ -124,7 +124,7 @@ const CustomerView = () => {
             handleFilterUpdate();
         }
     }, [roomsByDate, capacity, city, chain, rating, price, numRooms]);
-
+    
     return (
         <Fragment>
             <h2>Hotel Room Booking</h2>
@@ -187,7 +187,7 @@ const CustomerView = () => {
                     </InputGroup>
                     <Form.Group controlId="maxRooms">
                         <Form.Label>Max Rooms in Hotel: {numRooms} Rooms</Form.Label>
-                        <Form.Range value={numRooms} min='0' max='600' onChange={handleChangeRooms} />
+                        <Form.Range value={numRooms} min='0' max='50' onChange={handleChangeRooms} />
                     </Form.Group>
                     <Form.Group controlId="maxPrice">
                         <Form.Label>Max Price: ${price}</Form.Label>
@@ -211,7 +211,7 @@ const CustomerView = () => {
             </thead>
             <tbody>
                 {rooms.map(room => (
-                    <tr>
+                    <tr key={room.room_id}>
                         <td>{room.room_id}</td>
                         <td>Hotel Chain {room.hc_id}</td>
                         <td>{room.rating} Star</td>
@@ -219,7 +219,7 @@ const CustomerView = () => {
                         <td>{room.capacity}</td>
                         <td>${room.price}</td>
                         <td>{room.address}</td>
-                        <td><BookingModal /></td>
+                        <td><BookingModal roomID={room.room_id} startDate={selectedStartDate} endDate={selectedEndDate} handleReloadEmployees={props.handleReloadEmployees}/></td>
                     </tr>
                 ))}
             </tbody>

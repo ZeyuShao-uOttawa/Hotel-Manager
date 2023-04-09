@@ -2,7 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Tab, Tabs } from 'react-bootstrap';
 
-const EmployeeView = () => {
+const EmployeeView = (props) => {
+
+  console.log(props.update);
 
   const [rooms, setRooms] = useState([]);
   const [customers, setCustomers] = useState([]);
@@ -44,6 +46,11 @@ const EmployeeView = () => {
     getCustomers();
     getEmployees();
   }, []);
+
+  useEffect(() => {
+    getCustomers();
+    console.log("Reached");
+  }, [props.update]);
 
 
   return (

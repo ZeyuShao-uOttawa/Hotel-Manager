@@ -3,25 +3,44 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 
-//Middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-//ROUTES
-//Creating booking
-app.post("/booking", async(req, res) => {
+// ROUTES
+// Creating new customer
+app.post("/createCustomer", async(req, res) => {
   try {
-    const { booking } = req.body;
-    const newBooking = await pool.query(
-      "INSERT INTO booking () VALUES ($1)",
-      [booking]
+    // console.log(req.body)
+    const ssn = req.body.SSN;
+    const name = req.body.name;
+    const address = req.body.address;
+    const currentDate = new Date();
+    const newCustomer = await pool.query(
+      "INSERT INTO customer VALUES($1, $2, $3, CURRENT_DATE)",
+      [ssn, name, address]
       );
   } catch (err) {
     console.error(err.message);
   }
 });
 
-//Get all hotels
+// Creating booking
+app.post("/createBooking", async(req, res) => {
+  try {
+    const { booking } = req.body;
+    const newBooking = await pool.query(
+      "INSERT INTO booking () VALUES ($1)",
+      [booking]
+      );
+      // INSERT INTO customer VALUES(123456789, 'Eric', '123 Laurier St', CURRENT_DATE);
+      // INSERT INTO booking(start_date, end_date, room_id, SSN) VALUES(CURRENT_DATE, CURRENT_DATE+5, 1, 123456789);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// Get all hotels
 app.get("/hotels", async(req, res) => {
   try {
     const allHotels = await pool.query("SELECT * FROM hotel");
@@ -32,7 +51,7 @@ app.get("/hotels", async(req, res) => {
   }
 });
 
-//Get all rooms
+// Get all rooms
 app.get("/rooms", async(req, res) => {
   try {
     const allRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
@@ -43,7 +62,7 @@ app.get("/rooms", async(req, res) => {
   }
 });
 
-//Get available rooms by date
+// Get available rooms by date
 app.post("/freeRoomsDate", async(req, res) => {
   try {
     const startDate = req.body.selectedStartDate;
@@ -59,20 +78,7 @@ app.post("/freeRoomsDate", async(req, res) => {
   }
 });
 
-//Get available rooms by room capacity
-app.post("/freeRoomsCapacity", async(req, res) => {
-  try {
-    const roomCapacity = req.body.roomSize;
-    const allRooms = await pool.query("SELECT * FROM room NATURAL JOIN hotel");
-    res.json(allRooms.rows);
-    res.json(allFreeRooms.rows);
-    console.log("Successful query to get all free rooms using room capacity");
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-//Get all customers
+// Get all customers
 app.get("/customers", async (req, res) => {
   try {
     const allCustomers = await pool.query("SELECT * FROM customer");
@@ -83,7 +89,7 @@ app.get("/customers", async (req, res) => {
   }
 });
 
-//Get all employees
+// Get all employees
 app.get("/employees", async (req, res) => {
   try {
     const allEmployees = await pool.query("SELECT * FROM employee");
