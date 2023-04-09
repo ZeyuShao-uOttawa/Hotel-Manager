@@ -15,7 +15,6 @@ app.post("/createCustomer", async(req, res) => {
     const ssn = req.body.SSN;
     const name = req.body.name;
     const address = req.body.address;
-    const currentDate = new Date();
     const newCustomer = await pool.query(
       "INSERT INTO customer VALUES($1, $2, $3, CURRENT_DATE)",
       [ssn, name, address]
@@ -28,13 +27,14 @@ app.post("/createCustomer", async(req, res) => {
 // Creating booking
 app.post("/createBooking", async(req, res) => {
   try {
-    const { booking } = req.body;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const roomID = req.body.roomID;
+    const ssn = req.body.ssn;
     const newBooking = await pool.query(
-      "INSERT INTO booking () VALUES ($1)",
-      [booking]
+      "INSERT INTO booking(start_date, end_date, room_id, SSN) VALUES($1, $2, $3, $4)",
+      [startDate, endDate, roomID, ssn]
       );
-      // INSERT INTO customer VALUES(123456789, 'Eric', '123 Laurier St', CURRENT_DATE);
-      // INSERT INTO booking(start_date, end_date, room_id, SSN) VALUES(CURRENT_DATE, CURRENT_DATE+5, 1, 123456789);
   } catch (err) {
     console.error(err.message);
   }
@@ -68,7 +68,7 @@ app.post("/freeRoomsDate", async(req, res) => {
     const startDate = req.body.selectedStartDate;
     const endDate  = req.body.selectedEndDate;
     const allFreeRooms = await pool.query(
-      "WITH roomID(id) as (SELECT room.room_id FROM room LEFT JOIN booking ON room.room_id = booking.room_id WHERE booking.room_id IS NULL OR (booking.start_date >= $1 OR booking.end_date <= $2)) SELECT * FROM room, hotel, roomID WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id",
+      "WITH roomID(id) as (SELECT DISTINCT room.room_id FROM room LEFT JOIN booking ON room.room_id = booking.room_id WHERE NOT EXISTS (SELECT 1 FROM booking WHERE booking.room_id = room.room_id AND booking.start_date < $1 AND booking.end_date > $2)) SELECT * FROM room, hotel, roomID WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id",
       [endDate, startDate]
       );
     res.json(allFreeRooms.rows);
@@ -95,6 +95,17 @@ app.get("/employees", async (req, res) => {
     const allEmployees = await pool.query("SELECT * FROM employee");
     res.json(allEmployees.rows);
     console.log("Successful query to get all employees");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// Get all employees
+app.get("/bookings", async (req, res) => {
+  try {
+    const allEmployees = await pool.query("SELECT * FROM booking");
+    res.json(allEmployees.rows);
+    console.log("Successful query to get all bookings");
   } catch (err) {
     console.error(err.message);
   }

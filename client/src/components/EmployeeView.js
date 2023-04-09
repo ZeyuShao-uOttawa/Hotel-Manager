@@ -3,9 +3,6 @@ import Table from 'react-bootstrap/Table';
 import { Tab, Tabs } from 'react-bootstrap';
 
 const EmployeeView = (props) => {
-
-  console.log(props.update);
-
   const [rooms, setRooms] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -49,7 +46,6 @@ const EmployeeView = (props) => {
 
   useEffect(() => {
     getCustomers();
-    console.log("Reached");
   }, [props.update]);
 
 

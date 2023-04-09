@@ -21,14 +21,26 @@ const BookingModal = (props) => {
 
   const createBooking = async () =>{
     try {
-      const res = fetch("http://localhost:5000/createCustomer", {
+      const resCus = fetch("http://localhost:5000/createCustomer", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(formValues)
       });
+
+      const startDate = props.startDate;
+      const endDate = props.endDate;
+      const roomID = props.roomID;
+      const ssn = formValues.SSN;
+      const data = {startDate, endDate, roomID, ssn}
+
+      const resBook = fetch("http://localhost:5000/createBooking", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+      });
   
       props.handleReloadEmployees();
-      // handleClose();
+      handleClose();
     } catch (err) {
       console.log(err);
     }
