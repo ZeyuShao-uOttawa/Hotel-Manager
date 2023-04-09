@@ -31,8 +31,7 @@ const BookingModal = (props) => {
       const endDate = props.endDate;
       const roomID = props.roomID;
       const ssn = formValues.SSN;
-      const data = {startDate, endDate, roomID, ssn}
-
+      const data = {startDate, endDate, roomID, ssn};
       const resBook = fetch("http://localhost:5000/createBooking", {
         method: "POST",
         headers: {"Content-Type": "application/json"},

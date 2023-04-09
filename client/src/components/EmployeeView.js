@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Tab, Tabs } from 'react-bootstrap';
+import RentToBookModal from './RentToBookModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [bookings,setBookings] = useState([]);
+  const [rentals,setRentals] = useState([]);
   const [tabKey, initTabKey] = useState('one');
 
   const getRooms = async () => {
@@ -38,10 +41,32 @@ const EmployeeView = (props) => {
     }
   }
 
+  const getBookings = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/bookings');
+      const jsonData = await res.json();
+      setBookings(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  const getRentals = async() => {
+    try {
+      const res = await fetch('http://localhost:5000/rentals');
+      const jsonData = await res.json();
+      setRentals(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   useEffect(() => {
     getRooms();
     getCustomers();
     getEmployees();
+    getBookings();
+    getRentals();
   }, []);
 
   useEffect(() => {
@@ -155,6 +180,53 @@ const EmployeeView = (props) => {
                     <td>{employee.address}</td>
                     <td>{employee.role_pos}</td>
                     <td>{employee.hotel_id}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Tab>
+          <Tab eventKey="five" title="Bookings">
+            <h2>List of Bookings</h2>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Room ID</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map(booking => (
+                  <tr>
+                    <td>{booking.booking_id}</td>
+                    <td>{booking.room_id}</td>
+                    <td>{booking.start_date}</td>
+                    <td>{booking.end_date}</td>
+                    <td>{<RentToBookModal ssn = {booking.ssn} roomID = {booking.room_id} bookingID = {booking.booking_id} startDate = {booking.start_date} endDate = {booking.end_date}/>}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Tab>
+          <Tab eventKey="six" title="Rentals">
+            <h2>List of Rentals</h2>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Room ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rentals.map(rental => (
+                  <tr>
+                    <td>{rental.start_date}</td>
+                    <td>{rental.end_date}</td>
+                    <td>{rental.room_id}</td>
                   </tr>
                 ))}
               </tbody>

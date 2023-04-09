@@ -40,6 +40,38 @@ app.post("/createBooking", async(req, res) => {
   }
 });
 
+
+app.post("/deleteBooking", async(req, res) => {
+  const roomID = req.body.roomID;
+  try {
+    const deleteRental = await pool.query(
+      "DELETE FROM booking WHERE room_id = $1",
+      [roomID]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
+app.post("/createRental", async(req, res) => {
+  try {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const bookingID = req.body.bookingID;
+    const roomID = req.body.roomID;
+    const ssn = req.body.ssn;
+    console.log(req.body);
+    const newRental = await pool.query(
+      "INSERT INTO renting(start_date, end_date, booking_id, room_id,ssn) VALUES($1, $2, $3, $4, $5)",
+      [startDate, endDate,bookingID, roomID,ssn]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 // Get all hotels
 app.get("/hotels", async(req, res) => {
   try {
@@ -100,16 +132,28 @@ app.get("/employees", async (req, res) => {
   }
 });
 
-// Get all employees
+// Get all bookings
 app.get("/bookings", async (req, res) => {
   try {
-    const allEmployees = await pool.query("SELECT * FROM booking");
-    res.json(allEmployees.rows);
+    const allBookings = await pool.query("SELECT * FROM booking");
+    res.json(allBookings.rows);
     console.log("Successful query to get all bookings");
   } catch (err) {
     console.error(err.message);
   }
 });
+
+//Get all rentals
+app.get("/rentals", async (req, res) => {
+  try {
+    const allRentals = await pool.query("SELECT * FROM renting");
+    res.json(allRentals.rows);
+    console.log("Successful query to get all rentals");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
