@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Tab, Tabs } from 'react-bootstrap';
 import RentToBookModal from './RentToBookModal.js';
+import EditRoomModal from './EditRoomModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
@@ -93,6 +94,7 @@ const EmployeeView = (props) => {
                   <th>Damages</th>
                   <th>Is Rented</th>
                   <th>Hotel ID</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,6 +109,14 @@ const EmployeeView = (props) => {
                     <td>{room.has_damage ? "True" : "False"}</td>
                     <td>{room.is_rented ? "True" : "False"}</td>
                     <td>{room.hotel_id}</td>
+                    <td><EditRoomModal roomID = {room.room_id} 
+                    roomNumber = {room.room_num} 
+                    price = {room.price} 
+                    capacity = {room.capacity} 
+                    outsideView = {room.outside_view} 
+                    extended = {room.can_be_extended} 
+                    damage = {room.has_damage} 
+                    rented = {room.is_rented}/></td>
                   </tr>
                 ))}
               </tbody>

@@ -40,7 +40,28 @@ app.post("/createBooking", async(req, res) => {
   }
 });
 
+//Edit room
+app.post("/editroom", async(req, res) => {
+  try {
+    const roomID = req.body.roomID;
+    const roomNumber = req.body.roomNumber;
+    const price = req.body.price;
+    const capacity = req.body.capacity;
+    const outsideView = req.body.outsideView;
+    const extended = req.body.extended;
+    const damage = req.body.damage;
+    const rented = req.body.rented;
+    console.log(req.body);
+    const updateRoom = await pool.query(
+      "UPDATE room SET room_id = $1, room_num = $2, price = $3, capacity = $4, outside_view = $5, can_be_extended = $6, has_damage = $7, is_rented = $8 WHERE room_id = $1",
+      [roomID,roomNumber,price,capacity,outsideView,extended,damage,rented]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
+// Delete booking
 app.post("/deleteBooking", async(req, res) => {
   const roomID = req.body.roomID;
   try {
