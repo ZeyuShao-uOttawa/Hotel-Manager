@@ -53,13 +53,51 @@ app.post("/editroom", async(req, res) => {
     const rented = req.body.rented;
     console.log(req.body);
     const updateRoom = await pool.query(
-      "UPDATE room SET room_id = $1, room_num = $2, price = $3, capacity = $4, outside_view = $5, can_be_extended = $6, has_damage = $7, is_rented = $8 WHERE room_id = $1",
+      "UPDATE room SET room_num = $2, price = $3, capacity = $4, outside_view = $5, can_be_extended = $6, has_damage = $7, is_rented = $8 WHERE room_id = $1",
       [roomID,roomNumber,price,capacity,outsideView,extended,damage,rented]
       );
   } catch (err) {
     console.error(err.message);
   }
 });
+
+//Edit customer
+app.post("/editCustomer", async(req, res) => {
+  try {
+    const name = req.body.name;
+    const address = req.body.address;
+    const ssn = req.body.ssn;
+    console.log(req.body);
+    const updateRoom = await pool.query(
+      "UPDATE customer SET name = $1, address = $2 WHERE SSN = $3",
+      [name,address, ssn]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//Edit hotel
+app.post("/editHotel", async(req, res) => {
+  try {
+    const hotelID = req.body.hotelID;
+    const rating = req.body.rating;
+    const numRooms = req.body.numRooms;
+    const address = req.body.address;
+    const email = req.body.email;
+    const phone = req.body.phone;
+
+    console.log(req.body);
+    const updateRoom = await pool.query(
+      "UPDATE hotel SET rating = $2, num_rooms = $3, address = $4, email = $5, phone = $6 WHERE hotel_id = $1",
+      [hotelID,rating,numRooms,address,email,phone]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 
 // Delete booking
 app.post("/deleteBooking", async(req, res) => {

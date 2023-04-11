@@ -3,6 +3,8 @@ import Table from 'react-bootstrap/Table';
 import { Tab, Tabs } from 'react-bootstrap';
 import RentToBookModal from './RentToBookModal.js';
 import EditRoomModal from './EditRoomModal.js';
+import EditCustomerModal from './EditCustomerModal.js';
+import EditHotelModal from './EditHotelModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
@@ -10,6 +12,7 @@ const EmployeeView = (props) => {
   const [employees, setEmployees] = useState([]);
   const [bookings,setBookings] = useState([]);
   const [rentals,setRentals] = useState([]);
+  const [hotels,setHotels] = useState([]);
   const [tabKey, initTabKey] = useState('one');
 
   const getRooms = async () => {
@@ -62,12 +65,23 @@ const EmployeeView = (props) => {
     }
   }
 
+  const getHotels = async() => {
+    try {
+      const res = await fetch('http://localhost:5000/hotels');
+      const jsonData = await res.json();
+      setHotels(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   useEffect(() => {
     getRooms();
     getCustomers();
     getEmployees();
     getBookings();
     getRentals();
+    getHotels();
   }, []);
 
   useEffect(() => {
@@ -130,6 +144,7 @@ const EmployeeView = (props) => {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Registration Date</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
@@ -138,6 +153,10 @@ const EmployeeView = (props) => {
                     <td>{customer.name}</td>
                     <td>{customer.address}</td>
                     <td>{customer.reg_date}</td>
+                    <td><EditCustomerModal id = {customer.id}
+                    name = {customer.name}
+                    address = {customer.address}
+                    ssn = {customer.ssn}/></td>
                   </tr>
                 ))}
               </tbody>
@@ -148,25 +167,30 @@ const EmployeeView = (props) => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Room ID</th>
-                  <th>Hotel Name</th>
+                  <th>Hotel ID</th>
                   <th>Hotel Rating</th>
-                  <th>Hotel Rooms</th>
-                  <th>Room Capacity</th>
-                  <th>Price</th>
+                  <th>Number Of Rooms</th>
                   <th>Address</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
-                {rooms.map(room => (
+                {hotels.map(hotel => (
                   <tr>
-                    <td>{room.room_id}</td>
-                    <td>Hotel Chain {room.hc_id}</td>
-                    <td>{room.rating} Star</td>
-                    <td>{room.num_rooms} Rooms</td>
-                    <td>{room.capacity}</td>
-                    <td>${room.price}</td>
-                    <td>{room.address}</td>
+                    <td>{hotel.hotel_id}</td>
+                    <td>{hotel.rating}</td>
+                    <td>{hotel.num_rooms}</td>
+                    <td>{hotel.address}</td>
+                    <td>{hotel.email}</td>
+                    <td>{hotel.phone}</td>
+                    <td><EditHotelModal hotelID = {hotel.hotel_id}
+                    rating = {hotel.rating}
+                    numRooms = {hotel.num_rooms}
+                    address = {hotel.address}
+                    email = {hotel.email}
+                    phone = {hotel.phone}/></td>
                   </tr>
                 ))}
               </tbody>
