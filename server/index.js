@@ -98,6 +98,43 @@ app.post("/editHotel", async(req, res) => {
 });
 
 
+//Edit rental
+app.post("/editRental", async(req, res) => {
+  try {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const roomID = req.body.roomID;
+
+    console.log(req.body);
+    const updateRoom = await pool.query(
+      "UPDATE renting SET start_date = $1, end_date = $2 WHERE room_id = $3",
+      [startDate,endDate,roomID]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//Edit Employee
+app.post("/editEmployee", async(req, res) => {
+  try {
+    const name = req.body.name;
+    const address = req.body.address;
+    const role = req.body.role;
+    const hotelID = req.body.hotelID;
+    const ssn = req.body.ssn;
+    console.log(req.body);
+    const updateRoom = await pool.query(
+      "UPDATE employee SET name = $1, address = $2, role_pos = $3, hotel_id = $4 WHERE SSN = $5",
+      [name,address,role,hotelID,ssn]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
+
 
 // Delete booking
 app.post("/deleteBooking", async(req, res) => {
@@ -112,7 +149,7 @@ app.post("/deleteBooking", async(req, res) => {
   }
 });
 
-
+//Create Rental
 app.post("/createRental", async(req, res) => {
   try {
     const startDate = req.body.startDate;

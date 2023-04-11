@@ -5,6 +5,8 @@ import RentToBookModal from './RentToBookModal.js';
 import EditRoomModal from './EditRoomModal.js';
 import EditCustomerModal from './EditCustomerModal.js';
 import EditHotelModal from './EditHotelModal.js';
+import EditRentalModal from './EditRentalModal.js';
+import EditEmployeeModal from './EditEmployeeModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
@@ -205,6 +207,7 @@ const EmployeeView = (props) => {
                   <th>Address</th>
                   <th>Role</th>
                   <th>Hotel ID</th>
+                  <th>Edit Employee</th>
                 </tr>
               </thead>
               <tbody>
@@ -214,6 +217,11 @@ const EmployeeView = (props) => {
                     <td>{employee.address}</td>
                     <td>{employee.role_pos}</td>
                     <td>{employee.hotel_id}</td>
+                    <td><EditEmployeeModal name = {employee.name}
+                    address = {employee.address}
+                    role = {employee.role_pos}
+                    hotelID = {employee.hotel_id}
+                    ssn = {employee.ssn}/></td>
                   </tr>
                 ))}
               </tbody>
@@ -253,6 +261,7 @@ const EmployeeView = (props) => {
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Room ID</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
@@ -261,6 +270,9 @@ const EmployeeView = (props) => {
                     <td>{rental.start_date}</td>
                     <td>{rental.end_date}</td>
                     <td>{rental.room_id}</td>
+                    <td><EditRentalModal startDate = {rental.start_date}
+                    endDate = {rental.end_date}
+                    roomID = {rental.room_id}/></td>
                   </tr>
                 ))}
               </tbody>
