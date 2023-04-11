@@ -8,6 +8,7 @@ import EditHotelModal from './EditHotelModal.js';
 import EditRentalModal from './EditRentalModal.js';
 import EditEmployeeModal from './EditEmployeeModal.js';
 import AddEmployeeModal from './AddEmployeeModal.js';
+import RoomToRentalModal from './RoomToRentalModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
@@ -17,6 +18,16 @@ const EmployeeView = (props) => {
   const [rentals,setRentals] = useState([]);
   const [hotels,setHotels] = useState([]);
   const [tabKey, initTabKey] = useState('one');
+
+  var currentDateObj = new Date();
+  var utcDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate()));
+  var utcNextDate = new Date(Date.UTC(currentDateObj.getFullYear(), currentDateObj.getMonth(), currentDateObj.getDate() + 1));
+  const currentDate = utcDate.toJSON().slice(0,10);
+  const nextDate = utcNextDate.toJSON().slice(0,10);
+
+  const [selectedStartDate, setSelectedStartDate] = useState(currentDate);
+  const [selectedEndDate, setSelectedEndDate] = useState(nextDate);
+  const [selectedMinEndDate, setSelectedMinEndDate] = useState(nextDate);
 
   const getRooms = async () => {
     try {
@@ -78,6 +89,8 @@ const EmployeeView = (props) => {
     }
   }
 
+  
+
   useEffect(() => {
     getRooms();
     getCustomers();
@@ -134,6 +147,7 @@ const EmployeeView = (props) => {
                     extended = {room.can_be_extended} 
                     damage = {room.has_damage} 
                     rented = {room.is_rented}/></td>
+                    <td><RoomToRentalModal roomID = {room.room_id} startDate = {selectedStartDate} endDate = {selectedEndDate}/></td>
                   </tr>
                 ))}
               </tbody>
