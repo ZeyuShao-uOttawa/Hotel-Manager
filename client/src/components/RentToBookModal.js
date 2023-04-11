@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const RentToBookModal = (props) => {
     const [show, setShow] = useState(false);
@@ -8,7 +10,17 @@ const RentToBookModal = (props) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [formValues, setFormValues] = useState({ 
+        payment: ""
+    });
 
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormValues((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
     const changeRental = async () => {
         try {
             const startDate = props.startDate;
@@ -23,13 +35,9 @@ const RentToBookModal = (props) => {
                 body: JSON.stringify(data)
             }); 
 
-            const secondData = {roomID}
 
-            const resBook = fetch("http://localhost:5000/deleteBooking", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(secondData)
-            })
+
+            
 
             
             handleClose();
@@ -42,6 +50,13 @@ const RentToBookModal = (props) => {
 
     return (
         <Fragment>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Payment:</InputGroup.Text>
+              <Form.Control placeholder={props.payment} name="payment" value={formValues.payment} onChange={handleInputChange} 
+
+              />
+              
+            </InputGroup>
             <Button variant = "primary" onClick = {handleShow}>
                 Change Status
             </Button>
