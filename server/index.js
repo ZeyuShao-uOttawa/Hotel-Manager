@@ -24,6 +24,23 @@ app.post("/createCustomer", async(req, res) => {
   }
 });
 
+app.post("/createEmployee", async(req, res) => {
+  try {
+    const name = req.body.name;
+    const address = req.body.address;
+    const role = req.body.role;
+    const hotelID = req.body.hotelID;
+    const ssn = req.body.ssn;
+    console.log(req.body);
+    const newCustomer = await pool.query(
+      "INSERT INTO employee(SSN,name,address,role_pos,hotel_id) VALUES($5,$1,$2,$3,$4)",
+      [name,address,role,hotelID,ssn]
+      );
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 // Creating booking
 app.post("/createBooking", async(req, res) => {
   try {

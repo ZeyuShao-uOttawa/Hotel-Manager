@@ -7,6 +7,7 @@ import EditCustomerModal from './EditCustomerModal.js';
 import EditHotelModal from './EditHotelModal.js';
 import EditRentalModal from './EditRentalModal.js';
 import EditEmployeeModal from './EditEmployeeModal.js';
+import AddEmployeeModal from './AddEmployeeModal.js';
 
 const EmployeeView = (props) => {
   const [rooms, setRooms] = useState([]);
@@ -200,6 +201,7 @@ const EmployeeView = (props) => {
           </Tab>
           <Tab eventKey="four" title="Employees">
             <h2>List of Employees</h2>
+            <AddEmployeeModal />
             <Table striped bordered hover>
               <thead>
                 <tr>
