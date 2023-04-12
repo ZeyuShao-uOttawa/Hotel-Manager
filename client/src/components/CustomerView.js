@@ -8,7 +8,6 @@ const CustomerView = (props) => {
     const [roomsByDate, setRoomsByDate] = useState([]);
     const [rooms, setRooms] = useState([]);
 
-
     const [capacity, setCapacity] = useState("none");
     const [city, setCity] = useState("none");
     const [chain, setChain] = useState("none");
