@@ -1,7 +1,6 @@
 -- searching by city
 SELECT * FROM hotel WHERE address LIKE '%Montreal%' OR address LIKE '%Ottawa%';
 
-
 -- important details about ONLY hotel chains
 SELECT HC_id, address, email, phone FROM hotel_chain
 

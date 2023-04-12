@@ -19,11 +19,13 @@ app.post("/createCustomer", async(req, res) => {
       "INSERT INTO customer VALUES($1, $2, $3, CURRENT_DATE)",
       [ssn, name, address]
       );
+    console.log("Successfully made a new customer");
   } catch (err) {
     console.error(err.message);
   }
 });
 
+// Creating new employee
 app.post("/createEmployee", async(req, res) => {
   try {
     const name = req.body.name;
@@ -36,6 +38,7 @@ app.post("/createEmployee", async(req, res) => {
       "INSERT INTO employee(SSN,name,address,role_pos,hotel_id) VALUES($5,$1,$2,$3,$4)",
       [name,address,role,hotelID,ssn]
       );
+    console.log("Successfully made a new employee");
   } catch (err) {
     console.error(err.message);
   }
@@ -52,6 +55,7 @@ app.post("/createBooking", async(req, res) => {
       "INSERT INTO booking(start_date, end_date, room_id, SSN) VALUES($1, $2, $3, $4)",
       [startDate, endDate, roomID, ssn]
       );
+    console.log("Successfully made a new booking");
   } catch (err) {
     console.error(err.message);
   }
@@ -73,6 +77,7 @@ app.post("/editroom", async(req, res) => {
       "UPDATE room SET room_num = $2, price = $3, capacity = $4, outside_view = $5, can_be_extended = $6, has_damage = $7, is_rented = $8 WHERE room_id = $1",
       [roomID,roomNumber,price,capacity,outsideView,extended,damage,rented]
       );
+    console.log("Successfully updated room");
   } catch (err) {
     console.error(err.message);
   }
@@ -89,6 +94,7 @@ app.post("/editCustomer", async(req, res) => {
       "UPDATE customer SET name = $1, address = $2 WHERE SSN = $3",
       [name,address, ssn]
       );
+    console.log("Successfully updated customer");
   } catch (err) {
     console.error(err.message);
   }
@@ -109,6 +115,7 @@ app.post("/editHotel", async(req, res) => {
       "UPDATE hotel SET rating = $2, num_rooms = $3, address = $4, email = $5, phone = $6 WHERE hotel_id = $1",
       [hotelID,rating,numRooms,address,email,phone]
       );
+    console.log("Successfully updated hotel");
   } catch (err) {
     console.error(err.message);
   }
@@ -127,6 +134,7 @@ app.post("/editRental", async(req, res) => {
       "UPDATE renting SET start_date = $1, end_date = $2 WHERE room_id = $3",
       [startDate,endDate,roomID]
       );
+    console.log("Successfully updated rental");
   } catch (err) {
     console.error(err.message);
   }
@@ -145,13 +153,11 @@ app.post("/editEmployee", async(req, res) => {
       "UPDATE employee SET name = $1, address = $2, role_pos = $3, hotel_id = $4 WHERE SSN = $5",
       [name,address,role,hotelID,ssn]
       );
+    console.log("Successfully updated employee");
   } catch (err) {
     console.error(err.message);
   }
 });
-
-
-
 
 // Delete booking
 app.post("/deleteBooking", async(req, res) => {
@@ -179,6 +185,7 @@ app.post("/createRental", async(req, res) => {
       "INSERT INTO renting(start_date, end_date, booking_id, room_id,ssn) VALUES($1, $2, $3, $4, $5)",
       [startDate, endDate,bookingID, roomID,ssn]
       );
+    console.log("Successfully made a new rental");
   } catch (err) {
     console.error(err.message);
   }
