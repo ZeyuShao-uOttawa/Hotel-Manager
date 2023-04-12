@@ -64,6 +64,14 @@ SELECT *
 FROM room, hotel, roomID 
 WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id 
 
+WITH roomID(id) 
+as (SELECT DISTINCT room.room_id 
+    FROM room LEFT JOIN booking ON room.room_id = booking.room_id 
+    WHERE NOT EXISTS (SELECT 1 FROM booking WHERE booking.room_id = room.room_id AND booking.start_date < $1 AND booking.end_date > $2)) 
+SELECT * 
+FROM room, hotel, roomID 
+WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id
+
 
 -- retrieves bookings for a customer 
 SELECT b.start_date, b.end_date, r.room_num, r.price, r.capacity, r.outside_view, c.name, c.address, c.SSN
