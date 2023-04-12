@@ -56,15 +56,6 @@ INSERT INTO renting(start_date, end_date, booking_id, room_id, SSN) VALUES(CURRE
 
 -- Retrieving free rooms
 WITH roomID(id) 
-as (SELECT room.room_id 
-      FROM room LEFT JOIN booking ON room.room_id = booking.room_id 
-      WHERE booking.room_id IS NULL OR 
-            (booking.start_date >= 'end_date_input' OR booking.end_date <= 'start_date_input'))
-SELECT * 
-FROM room, hotel, roomID 
-WHERE room.hotel_id = hotel.hotel_id AND roomID.id = room.room_id 
-
-WITH roomID(id) 
 as (SELECT DISTINCT room.room_id 
     FROM room LEFT JOIN booking ON room.room_id = booking.room_id 
     WHERE NOT EXISTS (SELECT 1 FROM booking WHERE booking.room_id = room.room_id AND booking.start_date < $1 AND booking.end_date > $2)) 
